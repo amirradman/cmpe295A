@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import '../App.css'
+// import '../App.css'
 import { scaleLinear, scaleTime } from 'd3-scale'
 import { select, event } from 'd3-selection'
 import { area, line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
-// import { axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
-import csv_data from '../Data/data.csv';
+import $ from 'jquery'
+import csv_data from '../Data/data.csv'
+// import $ from 'jquery'
 
 class GradientCI extends Component {
    constructor(){
@@ -35,17 +36,16 @@ class GradientCI extends Component {
                     //     // .attr("height", height + margin.top + margin.bottom)
                     //     .attr("width", width)
                     //     .attr("height", height)
-                    .append("g")
-                        .attr("transform", 
-                                "translate(" + margin.left + "," + margin.top + ")");
+                    // .append("g")
+                    //     .attr("transform", 
+                    //             "translate(" + margin.left + "," + margin.top + ")");
                     //             "translate(" + 0 + "," + 0 + ")");
       
       d3.csv(csv_data).then(function(data) {
-
         // format the data
         // string to ingeter
         data.forEach(function(d) {
-            d.x = new Date(d.x);
+            d.x = new Date(`'${d.x}'`);
             d.y = +d.y;
             d.CI_left = +d.CI_left;
             d.CI_right = +d.CI_right;
@@ -57,21 +57,34 @@ class GradientCI extends Component {
                 .range([0, width])
                 .domain(d3.extent(data, function(d) { return d.x; }));
 
-        var y_translate = margin.top + height
         // select(node)
         svg.append("g")
-            .attr("transform", "translate(" + margin.left + "," + y_translate + ")")
+            .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
             .call(axisBottom(x));
+
+        // Add the text label for the x axis
+        svg.append("text")
+            .attr("transform", "translate(" + (width / 2 + margin.left) + " ," + (height + margin.top + margin.bottom) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
             
         // Add Y axis
         var y = scaleLinear()
-                // .range([height + margin.top, margin.top])
                 .range([height, 0])
-                .domain(d3.extent(data, function(d) { return d.y; }));
+                .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
         // select(node)
         svg.append("g")
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
             .call(axisLeft(y));
+
+        // Add the text label for the Y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - (margin.left / 2))
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Weekly Deaths");
 
         // // set the gradient
         // svg.append("linearGradient")				
@@ -94,7 +107,10 @@ class GradientCI extends Component {
         //         .attr("stop-color", function(d) { return d.color; });
 
         // Plot confidence interval 
-        svg.append("path")
+        var dataGroup = svg.append("g");
+        dataGroup.attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        dataGroup
+            .append("path")
             .datum(data)
             .attr("fill", "#f08432")
             // .attr("fill", "url('#area-gradient')")
@@ -106,9 +122,9 @@ class GradientCI extends Component {
                 .y0(function(d) { return y(d.CI_right) })
                 .y1(function(d) { return y(d.CI_left) })
             )
-            .attr("transform", "translate(" + margin.left + ", 0)")
         
-        svg.append("path")
+        dataGroup
+            .append("path")
             .datum(data)
             .attr("fill", "#f56831")
             // .attr("fill", "orange")
@@ -120,24 +136,21 @@ class GradientCI extends Component {
                 .y0(function(d) { return y(d.CI_right + (d.y - d.CI_right)/3) })
                 .y1(function(d) { return y(d.CI_left - (d.CI_left - d.y)/3) })
             )
-            .attr("transform", "translate(" + margin.left + ", 0)")
 
-        svg.append("path")
-        .datum(data)
-        .attr("fill", "red")
-        .attr("stroke", "none")
-        .attr("class", "area")
-        .style("opacity", 0.8)
-        .attr("d", area()
-            .x(function(d) { return x(d.x) })
-            .y0(function(d) { return y(d.CI_right + 2 * (d.y - d.CI_right)/3) })
-            .y1(function(d) { return y(d.CI_left - 2 * (d.CI_left - d.y)/3) })
-        )
-        .attr("transform", "translate(" + margin.left + ", 0)")
-
+        dataGroup.append("path")
+            .datum(data)
+            .attr("fill", "red")
+            .attr("stroke", "none")
+            .attr("class", "area")
+            .style("opacity", 0.8)
+            .attr("d", area()
+                .x(function(d) { return x(d.x) })
+                .y0(function(d) { return y(d.CI_right + 2 * (d.y - d.CI_right)/3) })
+                .y1(function(d) { return y(d.CI_left - 2 * (d.CI_left - d.y)/3) })
+            )
 
         // Add the line
-        svg.append("path")
+        dataGroup.append("path")
             .datum(data)
             .attr("fill", "none")
             .attr("stroke", "steelblue")
@@ -146,7 +159,7 @@ class GradientCI extends Component {
                 .x(function(d) { return x(d.x) })
                 .y(function(d) { return y(d.y) })
             )
-            .attr("transform", "translate(" + margin.left + ", 0)")
+
         // // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
         // // Its opacity is set to 0: we don't see it by default.
         // var tooltip = select(node)
@@ -193,14 +206,26 @@ class GradientCI extends Component {
         // }
 
         // Add the scatterplot
-        svg.selectAll("dot")
+        dataGroup.selectAll("dot")
             .data(data)
             .enter().append("circle")
                 .attr("r", 3.5)
                 .attr('fill', "steelblue")
                 .attr("cx", function(d) { return x(d.x); })
                 .attr("cy", function(d) { return y(d.y); })
-                .attr("transform", "translate(" + margin.left + ", 0)");
+                .on("mouseover",function(d){console.log(y(d.y))});
+                // .on("mouseover",function(){$(this).attr("fill","blue")})
+                // .on("mouseout",function(){$(this).attr("fill","yellow")});
+
+        // Add title 
+        svg.append("text")
+            .attr("x", (margin.left + width / 2))             
+            .attr("y", margin.top / 2)
+            .attr("dy", "1em")
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+            .style("text-decoration", "underline")  
+            .text("Forecasted weekly COVID-19 deaths in the United States");
         //     .on("mouseover", mouseover )
         //     .on('mouseout', function (d, i) {
         //         select(this).transition()
