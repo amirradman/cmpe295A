@@ -21,7 +21,7 @@ class GaussianLines extends Component {
     componentDidUpdate() {
        this.createGaussianLines()
     }
-    createGaussianLines() {
+    async createGaussianLines() {
        const node = this.node
      //   const dataMax = max(this.props.data)
        var margin = {top: 20, right: 20, bottom: 40, left: 60},
@@ -41,84 +41,68 @@ class GaussianLines extends Component {
             .text("Forecasted weekly COVID-19 deaths in the United States");
        
         var x, y;
-        d3.csv(csv_data).then(function(data) {
-            // format the data
-            // string to ingeter
-            data.forEach(function(d) {
-                d.x = new Date(`'${d.x}'`);
-                d.y = +d.y;
-            });
+        var data = await d3.csv(csv_data);
+        // format the data
+        // string to ingeter
+        data.forEach(function(d) {
+            d.x = new Date(`'${d.x}'`);
+            d.y = +d.y;
+        });
 
-            // Add X axis --> it is a date format
-            x = scaleTime()
-                .range([0, width])
-                .domain(d3.extent(data, function(d) { return d.x; }));
-           
-            svg.append("g")
-                .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-                .call(axisBottom(x));
-
-            // Add the text label for the x axis
-            svg.append("text")
-                .attr("transform", "translate(" + (width / 2 + margin.left) + " ," + (height + margin.top + margin.bottom) + ")")
-                .style("text-anchor", "middle")
-                .text("Date");
+        // Add X axis --> it is a date format
+        x = scaleTime()
+            .range([0, width])
+            .domain(d3.extent(data, function(d) { return d.x; }));
         
-            // Add Y axis
-            y = scaleLinear()
-                    .range([height, 0])
-                    .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
-            
-            svg.append("g")
-                .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-                .call(axisLeft(y));
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
+            .call(axisBottom(x));
 
-            // Add the text label for the Y axis
-            svg.append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 0 - (margin.left / 2))
-                .attr("x",0 - (height / 2))
-                .attr("dy", "1em")
-                .style("text-anchor", "middle")
-                .text("Weekly Deaths");
+        // Add the text label for the x axis
+        svg.append("text")
+            .attr("transform", "translate(" + (width / 2 + margin.left) + " ," + (height + margin.top + margin.bottom) + ")")
+            .style("text-anchor", "middle")
+            .text("Date");
+    
+        // Add Y axis
+        y = scaleLinear()
+                .range([height, 0])
+                .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
+        
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+            .call(axisLeft(y));
 
-        })
-        setTimeout(() => {
-            d3.csv(processed_data).then(async function(data) {
-                let row = [];
-                var last_line = data[data.length - 1]
-                for (let d of data) {
-                    await exec(() => {
-                        row = []
-                        row.push(getXYData(d.p1));
-                        row.push(getXYData(d.p2));
-                        row.push(getXYData(d.p3));
-                        row.push(getXYData(d.p4));
-                        drawLine(svg, margin, x, y, row)
-                    });
-                }
-            })
-        }, 200);
+        // Add the text label for the Y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - (margin.left / 2))
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Weekly Deaths");
+        
+        data = await d3.csv(processed_data);
+        let row = [];
+        for (let d of data) {
+            await exec(() => {
+                row = []
+                row.push(getXYData(d.p1));
+                row.push(getXYData(d.p2));
+                row.push(getXYData(d.p3));
+                row.push(getXYData(d.p4));
+                drawLine(svg, margin, x, y, row)
+            });
+        }
 
-        // draw final line
-        d3.csv(csv_data).then(function(data) {
-            // format the data
-            // string to ingeter
-            data.forEach(function(d) {
-                d.x = new Date(`'${d.x}'`);
-                d.y = +d.y;
-            })
-            svg.append("path")
-                .datum(data)
-                .attr("fill", "none")
-                .attr("stroke", "#000066")
-                .attr("stroke-width", 3)
-                .attr("d", line()
-                    .x(function(d) { return x(d.x) })
-                    .y(function(d) { return y(d.y) })
-                )
-                .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        })
+        // Final line
+        data = await d3.csv(csv_data);
+        data.forEach(function(d) {
+            d.x = new Date(`'${d.x}'`);
+            d.y = +d.y;
+        });
+        await delay(2000);
+        drawLine(svg, margin, x, y, data, "#000066", 3)
     }
 
 render() {
@@ -139,7 +123,7 @@ function getXYData(data) {
     return { x: new Date(x), y: parseFloat(y) };
 }
 
-function drawLine(svg, margin, x, y, rowData){
+function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWidth = 1.5){
     // format the data
     rowData.forEach(function(d) {
         d.x = new Date(d.x); // date
@@ -148,8 +132,8 @@ function drawLine(svg, margin, x, y, rowData){
     var path = svg.append("path")
                     .datum(rowData)
                     .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
+                    .attr("stroke", lineColor)
+                    .attr("stroke-width", strokeWidth)
                     .attr("d", line()
                         .x(function(d) { return x(d.x) })
                         .y(function(d) { return y(d.y) })
@@ -166,7 +150,6 @@ function drawLine(svg, margin, x, y, rowData){
         .attr("stroke-dashoffset", pathLength)
         .attr("stroke-dasharray", pathLength)
         .transition(transitionPath)
-        // .delay(function(d, i) { return i * 2500; } )
         .attr("stroke-dashoffset", 0);
 }
 
@@ -174,6 +157,14 @@ function exec(func, time = 1000) {
     return new Promise(function(resolve, reject) {
         setTimeout(() => {
             func();
+            resolve();
+        }, time);
+    })
+}
+
+function delay(time = 200) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(() => {
             resolve();
         }, time);
     })
