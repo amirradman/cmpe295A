@@ -29,6 +29,16 @@ class GaussianLines extends Component {
            height = 300 - margin.top - margin.bottom;  
  
        var svg = select(node)
+
+       // Add title 
+       svg.append("text")
+            .attr("x", (margin.left + width / 2))             
+            .attr("y", margin.top / 2)
+            .attr("dy", "1em")
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+            .style("text-decoration", "underline")  
+            .text("Forecasted weekly COVID-19 deaths in the United States");
        
         var x, y;
         d3.csv(csv_data).then(function(data) {
@@ -74,47 +84,41 @@ class GaussianLines extends Component {
 
         })
         setTimeout(() => {
-            
-        d3.csv(processed_data).then(function(data) {
-            let row = [];
+            d3.csv(processed_data).then(async function(data) {
+                let row = [];
+                var last_line = data[data.length - 1]
+                for (let d of data) {
+                    await exec(() => {
+                        row = []
+                        row.push(getXYData(d.p1));
+                        row.push(getXYData(d.p2));
+                        row.push(getXYData(d.p3));
+                        row.push(getXYData(d.p4));
+                        drawLine(svg, margin, x, y, row)
+                    });
+                }
+            })
+        }, 200);
+
+        // draw final line
+        d3.csv(csv_data).then(function(data) {
             // format the data
             // string to ingeter
             data.forEach(function(d) {
-                row = []
-                row.push(getXYData(d.p1));
-                row.push(getXYData(d.p2));
-                row.push(getXYData(d.p3));
-                row.push(getXYData(d.p4));
-
-                row.forEach(function(d) {
-                    d.x = new Date(d.x);
-                    d.y = +d.y;
-                })
-    
-                // Add the line
-                svg.append("path")
-                    .datum(row)
-                    .attr("fill", "none")
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", line()
+                d.x = new Date(`'${d.x}'`);
+                d.y = +d.y;
+            })
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke", "#000066")
+                .attr("stroke-width", 3)
+                .attr("d", line()
                     .x(function(d) { return x(d.x) })
-                        .y(function(d) { return y(d.y) })
-                    )
-                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-            });
-
-            // Add title 
-            svg.append("text")
-                .attr("x", (margin.left + width / 2))             
-                .attr("y", margin.top / 2)
-                .attr("dy", "1em")
-                .attr("text-anchor", "middle")  
-                .style("font-size", "16px") 
-                .style("text-decoration", "underline")  
-                .text("Forecasted weekly COVID-19 deaths in the United States");
+                    .y(function(d) { return y(d.y) })
+                )
+                .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         })
-        }, 200);
     }
 
 render() {
@@ -133,4 +137,44 @@ function getXYData(data) {
     var x = data.substring(1, data.length - 1).split(',')[0]
     var y = data.substring(1, data.length - 1).split(',')[1]
     return { x: new Date(x), y: parseFloat(y) };
+}
+
+function drawLine(svg, margin, x, y, rowData){
+    // format the data
+    rowData.forEach(function(d) {
+        d.x = new Date(d.x); // date
+        d.y = +d.y;          // string to ingeter
+    })
+    var path = svg.append("path")
+                    .datum(rowData)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", line()
+                        .x(function(d) { return x(d.x) })
+                        .y(function(d) { return y(d.y) })
+                    )
+                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+
+    const pathLength = path.node().getTotalLength();  
+    const transitionPath = d3
+                            .transition()
+                            .ease(d3.easeSin)
+                            .duration(2500)
+                            
+    path
+        .attr("stroke-dashoffset", pathLength)
+        .attr("stroke-dasharray", pathLength)
+        .transition(transitionPath)
+        // .delay(function(d, i) { return i * 2500; } )
+        .attr("stroke-dashoffset", 0);
+}
+
+function exec(func, time = 1000) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(() => {
+            func();
+            resolve();
+        }, time);
+    })
 }
