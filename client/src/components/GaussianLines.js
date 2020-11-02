@@ -5,7 +5,7 @@ import { line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
 import csv_data from '../Data/data.csv'
-import processed_data from '../Data/processed_data.csv'
+import processed_data from '../Data/processed_data_4000_30.csv'
 
 class GaussianLines extends Component {
     constructor(){
@@ -80,28 +80,29 @@ class GaussianLines extends Component {
             // format the data
             // string to ingeter
             data.forEach(function(d) {
+                row = []
                 row.push(getXYData(d.p1));
                 row.push(getXYData(d.p2));
                 row.push(getXYData(d.p3));
                 row.push(getXYData(d.p4));
+
+                row.forEach(function(d) {
+                    d.x = new Date(d.x);
+                    d.y = +d.y;
+                })
+    
+                // Add the line
+                svg.append("path")
+                    .datum(row)
+                    .attr("fill", "none")
+                    .attr("stroke", "steelblue")
+                    .attr("stroke-width", 1.5)
+                    .attr("d", line()
+                    .x(function(d) { return x(d.x) })
+                        .y(function(d) { return y(d.y) })
+                    )
+                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
             });
-
-            row.forEach(function(d) {
-                d.x = new Date(d.x);
-                d.y = +d.y;
-            })
-
-            // Add the line
-            svg.append("path")
-                .datum(row)
-                .attr("fill", "none")
-                .attr("stroke", "steelblue")
-                .attr("stroke-width", 1.5)
-                .attr("d", line()
-                .x(function(d) { return x(d.x) })
-                    .y(function(d) { return y(d.y) })
-                )
-                .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
 
             // Add title 
             svg.append("text")
