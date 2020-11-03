@@ -64,26 +64,63 @@ class GaussianLines extends Component {
             .style("text-anchor", "middle")
             .text("Date");
     
+        // // Add Y axis
+        // y = scaleLinear()
+        //         .range([height, 0])
+        //         .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
+        
+        // svg.append("g")
+        //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        //     .call(axisLeft(y));
+
+        // // Add the text label for the Y axis
+        // svg.append("text")
+        //     .attr("transform", "rotate(-90)")
+        //     .attr("y", 0 - (margin.left / 2))
+        //     .attr("x",0 - (height / 2))
+        //     .attr("dy", "1em")
+        //     .style("text-anchor", "middle")
+        //     .text("Weekly Deaths");
+        
+        // Draw gaussion lines
+        data = await d3.csv(processed_data)
+        let row = []
+        let max_ys = []
+        let min_ys = []
+        // let max_y = 0;
+        // let min_y = Number.POSITIVE_INFINITY;
+        for (let d of data) {
+            // console.log(d);
+            let row = [];
+            row.push(getXYData(d.p1));
+            row.push(getXYData(d.p2));
+            row.push(getXYData(d.p3));
+            row.push(getXYData(d.p4));
+            var min_max = findMinMax(row)
+            min_ys.push(min_max[0])
+            max_ys.push(min_max[1])
+        }
+        var max = Math.max(...max_ys)
+        var min = Math.min(...min_ys)
+
         // Add Y axis
         y = scaleLinear()
-                .range([height, 0])
-                .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
-        
+        .range([height, 0])
+        .domain([min, max])
+
         svg.append("g")
-            .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-            .call(axisLeft(y));
+        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .call(axisLeft(y));
 
         // Add the text label for the Y axis
         svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - (margin.left / 2))
-            .attr("x",0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .text("Weekly Deaths");
-        
-        data = await d3.csv(processed_data);
-        let row = [];
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - (margin.left / 2))
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Weekly Deaths");
+
         for (let d of data) {
             await exec(() => {
                 row = []
@@ -95,7 +132,7 @@ class GaussianLines extends Component {
             });
         }
 
-        // Final line
+        // Draw final line
         data = await d3.csv(csv_data);
         data.forEach(function(d) {
             d.x = new Date(`'${d.x}'`);
@@ -169,3 +206,15 @@ function delay(time = 200) {
         }, time);
     })
 }
+
+function findMinMax(arr) {
+    let min = arr[0].y, max = arr[0].y;
+  
+    for (let i = 1, len=arr.length; i < len; i++) {
+      let v = arr[i].y;
+      min = (v < min) ? v : min;
+      max = (v > max) ? v : max;
+    }
+  
+    return [min, max];
+  }
