@@ -41,10 +41,10 @@ class GaussianLines extends Component {
             .text("Forecasted weekly COVID-19 deaths in the United States");
        
         var x, y;
-        var data = await d3.csv(csv_data);
+        var data_ori = await d3.csv(csv_data);
         // format the data
         // string to ingeter
-        data.forEach(function(d) {
+        data_ori.forEach(function(d) {
             d.x = new Date(`'${d.x}'`);
             d.y = +d.y;
         });
@@ -52,7 +52,7 @@ class GaussianLines extends Component {
         // Add X axis --> it is a date format
         x = scaleTime()
             .range([0, width])
-            .domain(d3.extent(data, function(d) { return d.x; }));
+            .domain(d3.extent(data_ori, function(d) { return d.x; }));
         
         svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
@@ -63,39 +63,21 @@ class GaussianLines extends Component {
             .attr("transform", "translate(" + (width / 2 + margin.left) + " ," + (height + margin.top + margin.bottom) + ")")
             .style("text-anchor", "middle")
             .text("Date");
-    
-        // // Add Y axis
-        // y = scaleLinear()
-        //         .range([height, 0])
-        //         .domain([d3.min(data, function(d) { return d.CI_left; }), d3.max(data, function(d) { return d.CI_right; })])
-        
-        // svg.append("g")
-        //     .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
-        //     .call(axisLeft(y));
-
-        // // Add the text label for the Y axis
-        // svg.append("text")
-        //     .attr("transform", "rotate(-90)")
-        //     .attr("y", 0 - (margin.left / 2))
-        //     .attr("x",0 - (height / 2))
-        //     .attr("dy", "1em")
-        //     .style("text-anchor", "middle")
-        //     .text("Weekly Deaths");
-        
-        // Draw gaussion lines
-        data = await d3.csv(processed_data)
-        let row = []
+            
+        // Draw y axis and gaussion lines
+        var data = await d3.csv(processed_data)
+        // let row = []
+        let rows = []
         let max_ys = []
         let min_ys = []
-        // let max_y = 0;
-        // let min_y = Number.POSITIVE_INFINITY;
+
         for (let d of data) {
-            // console.log(d);
             let row = [];
             row.push(getXYData(d.p1));
             row.push(getXYData(d.p2));
             row.push(getXYData(d.p3));
             row.push(getXYData(d.p4));
+            rows.push(row)
             var min_max = findMinMax(row)
             min_ys.push(min_max[0])
             max_ys.push(min_max[1])
@@ -121,25 +103,30 @@ class GaussianLines extends Component {
         .style("text-anchor", "middle")
         .text("Weekly Deaths");
 
-        for (let d of data) {
+        // Draw gaussion lines  
+        for (let row of rows) {
             await exec(() => {
-                row = []
-                row.push(getXYData(d.p1));
-                row.push(getXYData(d.p2));
-                row.push(getXYData(d.p3));
-                row.push(getXYData(d.p4));
                 drawLine(svg, margin, x, y, row)
             });
         }
 
         // Draw final line
-        data = await d3.csv(csv_data);
-        data.forEach(function(d) {
+        data_ori.forEach(function(d) {
             d.x = new Date(`'${d.x}'`);
             d.y = +d.y;
         });
         await delay(2000);
-        drawLine(svg, margin, x, y, data, "#000066", 3)
+        drawLine(svg, margin, x, y, data_ori, "#000066", 3)
+
+        // Add the scatterplot
+        svg.selectAll("dot")
+            .data(data_ori)
+            .enter().append("circle")
+                .attr("r", 3.5)
+                .attr('fill', "#000066")
+                .attr("cx", function(d) { return x(d.x); })
+                .attr("cy", function(d) { return y(d.y); })
+                .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
     }
 
 render() {
