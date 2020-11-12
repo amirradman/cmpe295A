@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 // import '../App.css'
 import { scaleLinear, scaleTime } from 'd3-scale'
 import { select, event } from 'd3-selection'
@@ -26,7 +27,7 @@ class GradientCI extends Component {
    createGradientCI() {
       const node = this.node
     //   const dataMax = max(this.props.data)
-      var margin = {top: 20, right: 20, bottom: 40, left: 60},
+      var margin = {top: 20, right: 20, bottom: 40, left: 80},
           width = 800 - margin.left - margin.right,
           height = 300 - margin.top - margin.bottom;  
 
@@ -53,7 +54,6 @@ class GradientCI extends Component {
         
         // Add X axis --> it is a date format
         var x = scaleTime()
-                // .range([margin.left, width + margin.left])
                 .range([0, width])
                 .domain(d3.extent(data, function(d) { return d.x; }));
 
@@ -80,31 +80,11 @@ class GradientCI extends Component {
         // Add the text label for the Y axis
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - (margin.left / 2))
+            .attr("y", 10)
             .attr("x",0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Weekly Deaths");
-
-        // // set the gradient
-        // svg.append("linearGradient")				
-        //         .attr("id", "area-gradient")			
-        //         .attr("gradientUnits", "userSpaceOnUse")	
-        //         // .attr("x1", 0).attr("y1", y(0))			
-        //         // .attr("x2", 0).attr("y2", y(1000))
-        //         .attr("x1", "0%").attr("y1", "0%")			
-        //         .attr("x2", "0%").attr("y2", "100%")		
-        //     .selectAll("stop")						
-        //         .data([								
-        //             {offset: "0%", color: "yellow"},
-        //             {offset: "25%", color: "orange"},		
-        //             {offset: "50%", color: "red"},
-        //             {offset: "75%", color: "orange"},
-        //             {offset: "100%", color: "yellow"}	
-        //         ])					
-        //     .enter().append("stop")			
-        //         .attr("offset", function(d) { return d.offset; })	
-        //         .attr("stop-color", function(d) { return d.color; });
 
         // Plot confidence interval 
         var dataGroup = svg.append("g");
@@ -113,7 +93,6 @@ class GradientCI extends Component {
             .append("path")
             .datum(data)
             .attr("fill", "#f08432")
-            // .attr("fill", "url('#area-gradient')")
             .attr("stroke", "none")
             .attr("class", "area")
             .style("opacity", 0.5)
@@ -213,7 +192,10 @@ class GradientCI extends Component {
                 .attr('fill', "steelblue")
                 .attr("cx", function(d) { return x(d.x); })
                 .attr("cy", function(d) { return y(d.y); })
-                .on("mouseover",function(d){console.log(y(d.y))});
+                .attr("data-tip", "123")
+                .attr("data-for", "tip")
+                // .on("mouseover",function(d){console.log(y(d.y))});
+                // .on("mouseover", mouseover)
                 // .on("mouseover",function(){$(this).attr("fill","blue")})
                 // .on("mouseout",function(){$(this).attr("fill","yellow")});
 
@@ -235,26 +217,6 @@ class GradientCI extends Component {
         //              .duration('50')
         //              .style("opacity", 0);
         //    })
-            
-
-        // select(node)
-        //     .selectAll("circle")
-        //     .data(data).enter()
-        //     // .data(data).enter().append("svg:circle")
-        //     .append("title")
-        //         .text(function(d) { return d.x + ":" + d.y; });
-
-        // // Add the X Axis
-        // svg.append("g")
-        //     // .attr("transform", "translate(0," + height + ")")
-        //     // .attr("transform", `translate(0,${height - margin.bottom})`)
-        //     .call(axisBottom(x));
-
-        // // Add the Y Axis
-        // svg.append("g")
-        //     .attr("transform", `translate(${margin.left},0)`)
-        //     .call(d3.axisLeft(y));
-
       })
 
 

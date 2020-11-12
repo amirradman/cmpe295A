@@ -5,7 +5,10 @@ import { line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
 import csv_data from '../Data/data.csv'
+// import processed_data from '../Data/processed_data_1000_20.csv'
+// import processed_data from '../Data/processed_data_Exponential.csv'
 import processed_data from '../Data/processed_data_4000_30.csv'
+
 
 class GaussianLines extends Component {
     constructor(){
@@ -24,7 +27,7 @@ class GaussianLines extends Component {
     async createGaussianLines() {
        const node = this.node
      //   const dataMax = max(this.props.data)
-       var margin = {top: 20, right: 20, bottom: 40, left: 60},
+       var margin = {top: 20, right: 20, bottom: 40, left: 80},
            width = 800 - margin.left - margin.right,
            height = 300 - margin.top - margin.bottom;  
  
@@ -66,7 +69,6 @@ class GaussianLines extends Component {
             
         // Draw y axis and gaussion lines
         var data = await d3.csv(processed_data)
-        // let row = []
         let rows = []
         let max_ys = []
         let min_ys = []
@@ -96,12 +98,12 @@ class GaussianLines extends Component {
 
         // Add the text label for the Y axis
         svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 0 - (margin.left / 2))
-        .attr("x",0 - (height / 2))
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text("Weekly Deaths");
+            .attr("transform", "rotate(-90)")
+            .attr("y", 10)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Weekly Deaths");
 
         // Draw gaussion lines  
         for (let row of rows) {
