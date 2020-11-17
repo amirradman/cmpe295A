@@ -1,0 +1,10 @@
+.test{
+  background-color: rgb(197, 196, 196);
+}
+.Test{
+  display:left;
+}
+.jumbotron {
+  padding: 5em inherit;
+  border-radius: 8px;
+}

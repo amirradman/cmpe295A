@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 // import '../App.css'
 import { scaleLinear, scaleTime } from 'd3-scale'
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 import { area, line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
-import $ from 'jquery'
+// import $ from 'jquery'
 import csv_data from '../Data/data.csv'
 // import $ from 'jquery'
 
@@ -18,6 +18,11 @@ class GradientCI extends Component {
     //   this.barpadding = this.props.barpadding
       this.createGradientCI = this.createGradientCI.bind(this)
    }
+
+//    render(){
+
+
+//    }
    componentDidMount() {
       this.createGradientCI()
    }
@@ -270,7 +275,7 @@ render() {
     //   </svg>
     return <svg ref={node => this.node = node}
     // >
-    width={800} height={300}>
+    width={800} height={400}>
     </svg>
    }
 }
