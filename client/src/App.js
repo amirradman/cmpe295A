@@ -1,5 +1,5 @@
 import React from 'react';
-import AppNavbar from './components/AppNavbar'
+import Navbar from './components/Navbar/Navbar';
 import GradientCI from './components/GradientCI'
 // import GaussianLines from './components/GaussianLines';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -11,17 +11,17 @@ function App() {
   return (
     <div>
       <div className="App">
-        <AppNavbar></AppNavbar>
+        <Navbar></Navbar>
       </div>
       <div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row Test" >
+        <div className="row">
+          <div className="col-md-6">
+            <div className="row Test" >
               <GradientCI />
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div className="col-md-6">
             <Questions />
           </div>
 
@@ -31,8 +31,8 @@ function App() {
 
 
 
-        <div class="row">
-          <div class="mx-auto">
+        <div className="row">
+          <div className="mx-auto">
             {/* <GaussianLines /> */}
           </div>
         </div>
