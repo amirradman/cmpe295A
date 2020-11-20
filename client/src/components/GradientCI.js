@@ -8,7 +8,6 @@ import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
 import $ from 'jquery'
 import csv_data from '../Data/data.csv'
-// import $ from 'jquery'
 
 class GradientCI extends Component {
    constructor(){
@@ -32,15 +31,6 @@ class GradientCI extends Component {
           height = 300 - margin.top - margin.bottom;  
 
       var svg = select(node)
-                    // .append("svg")
-                    //     // .attr("width", width + margin.left + margin.right)
-                    //     // .attr("height", height + margin.top + margin.bottom)
-                    //     .attr("width", width)
-                    //     .attr("height", height)
-                    // .append("g")
-                    //     .attr("transform", 
-                    //             "translate(" + margin.left + "," + margin.top + ")");
-                    //             "translate(" + 0 + "," + 0 + ")");
       
       d3.csv(csv_data).then(function(data) {
         // format the data
@@ -139,66 +129,92 @@ class GradientCI extends Component {
                 .y(function(d) { return y(d.y) })
             )
 
-        // // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
-        // // Its opacity is set to 0: we don't see it by default.
-        // var tooltip = select(node)
-        //                 .append("div")
-        //                 .style("opacity", 0)
-        //                 .attr("class", "tooltip")
-        //                 .style("background-color", "white")
-        //                 .style("border", "solid")
-        //                 .style("border-width", "1px")
-        //                 .style("border-radius", "5px")
-        //                 .style("padding", "10px")
+        // Add tooltip
+        var tooltip = dataGroup.append("text")
+                                .style("opacity", 0);
 
-    //     var div = select(node).append("div")
-    //                 // .attr("class", "tooltip-donut")
-    //                 .style("opacity", 0);
+        var tooltip_low = dataGroup.append("text")
+                            .style("opacity", 0);
 
-    //     // A function that change this tooltip when the user hover a point.
-    //     // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-    //     var mouseover = function (d, i) {
-    //         select(this).transition()
-    //              .duration('50')
-    //              .attr('opacity', '.85');
-    //         div.transition()
-    //              .duration(50)
-    //              .style("opacity", 1);
-    //         div.html(d.x + ":" + d.y)
-    //             //  .style("left", (d3.event.pageX + 10) + "px")
-    //             //  .style("top", (d3.event.pageY - 15) + "px");
-    //    }
+        var tooltip_high = dataGroup.append("text")
+                            .style("opacity", 0);
 
-        // var mousemove = function(d) {
-        //     tooltip
-        //         .html(d.x + ":" + d.y)
-        //         .style("left", (mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-        //         .style("top", (mouse(this)[1]) + "px")
-        // }
+        // Add the scatterplot of bounds
+        var bounds = dataGroup.selectAll("dot")
+        function drawBounds(data) {
+            bounds
+                .data(data)
+                .enter().append("circle")
+                    .attr("r", 3.5)
+                    .attr('fill', "steelblue")
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; })
+                    .attr("opacity", 1 )
+        }
 
-        // // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-        // var mouseleave = function(d) {
-        //     tooltip
-        //         .transition()
-        //         .duration(200)
-        //         .style("opacity", 0)
-        // }
+        function hide_tip(tooltip){
+            tooltip.transition()
+                    .duration('50')
+                    .style("opacity", 0);
+        }
 
-        // Add the scatterplot
-        dataGroup.selectAll("dot")
+        function show_tip(tooltip, text, x, y){
+            tooltip.transition()
+                    .duration(50)
+                    .style("opacity", 1);
+            tooltip.html(text)
+                    .attr("x", x - 20)             
+                    .attr("y", y - 20)
+                    .attr("dy", "1em")
+                    .attr("font-size", 12)
+        }
+        // Add the scatterplot of means
+        dataGroup
+            .selectAll("dot")
             .data(data)
             .enter().append("circle")
                 .attr("r", 3.5)
                 .attr('fill', "steelblue")
                 .attr("cx", function(d) { return x(d.x); })
                 .attr("cy", function(d) { return y(d.y); })
-                .attr("data-tip", "123")
-                .attr("data-for", "tip")
-                // .on("mouseover",function(d){console.log(y(d.y))});
-                // .on("mouseover", mouseover)
-                // .on("mouseover",function(){$(this).attr("fill","blue")})
-                // .on("mouseout",function(){$(this).attr("fill","yellow")});
+                .attr("y-low", function(d) { return y(d.CI_left); })
+                .attr("y-high", function(d) { return y(d.CI_right); })
+                .attr("data-y", function(d) { return d.y; })
+                .attr("data-low", function(d) { return d.CI_left; })
+                .attr("data-high", function(d) { return d.CI_right; })
+                .on('mouseover', function (d) {
+                    show_tip(tooltip, 
+                            d3.select(this).attr("data-y"), 
+                            parseInt(d3.select(this).attr("cx")), 
+                            parseInt(d3.select(this).attr("cy")))
 
+                    let data_bounds = [{x: d3.select(this).attr("cx"), 
+                                        y: d3.select(this).attr("y-low"), 
+                                        v: d3.select(this).attr("data-low")},
+                                       {x: d3.select(this).attr("cx"), 
+                                        y: d3.select(this).attr("y-high"), 
+                                        v: d3.select(this).attr("data-high")}]
+                    drawBounds(data_bounds)
+
+                    show_tip(tooltip_low, 
+                            d3.select(this).attr("data-low"), 
+                            parseInt(d3.select(this).attr("cx")), 
+                            parseInt(d3.select(this).attr("y-low")))
+
+                    show_tip(tooltip_high, 
+                        d3.select(this).attr("data-high"), 
+                            parseInt(d3.select(this).attr("cx")), 
+                            parseInt(d3.select(this).attr("y-high")))
+               })
+               .on('mouseout', function () {
+                    hide_tip(tooltip)
+                    hide_tip(tooltip_low)
+                    hide_tip(tooltip_high)
+                    bounds.transition()
+                        .duration('50')
+                        .attr("opacity", 0);
+               });
+            
         // Add title 
         svg.append("text")
             .attr("x", (margin.left + width / 2))             
@@ -207,62 +223,8 @@ class GradientCI extends Component {
             .attr("text-anchor", "middle")  
             .style("font-size", "16px") 
             .style("text-decoration", "underline")  
-            .text("Forecasted weekly COVID-19 deaths in the United States");
-        //     .on("mouseover", mouseover )
-        //     .on('mouseout', function (d, i) {
-        //         select(this).transition()
-        //              .duration('50')
-        //              .attr('opacity', '1');
-        //         div.transition()
-        //              .duration('50')
-        //              .style("opacity", 0);
-        //    })
+            .text("Forecasted weekly COVID-19 deaths in the United States by Columbia University");
       })
-
-
-    //   select(node)
-    //      .selectAll('rect')
-    //      .data(this.props.data)
-    //      .exit()
-    //      .remove()
-      
-    //   select(node)
-    //      .selectAll('rect')
-    //      .data(this.props.data)
-    //      .attr("x", (d, i) => i * (this.w / this.props.data.length))
-    //      .attr("y", d => this.h - d * 4)
-    //      .attr("width", this.w / this.props.data.length - this.barpadding)
-    //      .attr("height", d => d * 4)
-    //      .attr("fill", d => "rgb(0, 0, " + (d * 10) + ")")
-
-    //   // Labels
-    //   select(node)
-    //      .selectAll("text")
-    //      .data(this.props.data)
-    //      .enter()
-    //      .append("text")
-    //      .text(d => d) 
-    //      .attr("x", (d, i) => i * (this.w / this.props.data.length) + (this.w / this.props.data.length - this.barpadding) / 2)
-    //      .attr("y", d => this.h - (d * 4) + 14)
-    //      .attr("font-family", "sans-serif")
-    //      .attr("font-size", "11px")
-    //      .attr("fill", "white")
-    //      .attr("text-anchor", "middle");
-
-    // function PlotConfidenceInterval () {
-    //     select(node).append("path")
-    //         .datum(data)
-    //         .attr("fill", "#f08432")
-    //         // .attr("fill", "url('#area-gradient')")
-    //         .attr("stroke", "none")
-    //         .attr("class", "area")
-    //         .style("opacity", 0.5)
-    //         .attr("d", area()
-    //             .x(function(d) { return x(d.x) })
-    //             .y0(function(d) { return y(d.CI_right) })
-    //             .y1(function(d) { return y(d.CI_left) })
-    //         )
-    // }
    }
 render() {
     //   return <svg ref={node => this.node = node}
