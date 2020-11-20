@@ -7,7 +7,7 @@ import * as d3 from 'd3'
 import csv_data from '../Data/data.csv'
 // import processed_data from '../Data/processed_data_1000_20.csv'
 // import processed_data from '../Data/processed_data_Exponential.csv'
-import processed_data from '../Data/processed_data_4000_30.csv'
+import processed_data from '../Data/processed_data_4000_100.csv'
 
 
 class GaussianLines extends Component {
@@ -41,7 +41,7 @@ class GaussianLines extends Component {
             .attr("text-anchor", "middle")  
             .style("font-size", "16px") 
             .style("text-decoration", "underline")  
-            .text("Forecasted weekly COVID-19 deaths in the United States");
+            .text("Forecasted weekly COVID-19 deaths in the United States by Columbia University");
        
         var x, y;
         var data_ori = await d3.csv(csv_data);
@@ -107,9 +107,10 @@ class GaussianLines extends Component {
 
         // Draw gaussion lines  
         for (let row of rows) {
-            await exec(() => {
-                drawLine(svg, margin, x, y, row)
-            });
+            drawLine(svg, margin, x, y, row);
+            // await exec(() => {
+            //     drawLine(svg, margin, x, y, row)
+            // });
         }
 
         // Draw final line
@@ -159,7 +160,7 @@ function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWid
                     .datum(rowData)
                     .attr("fill", "none")
                     .attr("stroke", lineColor)
-                    .attr("stroke-width", strokeWidth)
+                    .attr("stroke-width", strokeWidth/2)
                     .attr("d", line()
                         .x(function(d) { return x(d.x) })
                         .y(function(d) { return y(d.y) })
