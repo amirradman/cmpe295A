@@ -47,7 +47,7 @@ app.use(
 
 // connect to mongo
 mongoose
-  .connect('mongodb://localhost/D3-MasterProject', { useNewUrlParser: true })
+  .connect('mongodb+srv://amir:dbpassword@cluster.lle8r.mongodb.net/test', { useNewUrlParser: true })
   .then(() => console.log('Mongodb connected...'))
   .catch(err => console.log(err));
 
