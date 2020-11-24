@@ -52,19 +52,28 @@ const User = require('../models/Item.js');
 users.use(cors());
 
 
-users.post('/register', (req, res) => {
+users.post('/Save', (req, res) => {
   console.log("this is req.body");
   console.log(req.body);
 
   const Params = new Item({
     question1: req.body.question1,
     question2: req.body.question2,
-    // question3: req.body.question3,
-    // question4: req.body.question4,
+    question3: req.body.question3,
+    question4: req.body.question4,
+    question5: req.body.question5,
   })
 
   Params.save().then(item => res.json(item))
 });
+
+// users.findById(ObjectId("5fb4a964c22b34330cd29e55"))
+//   .then(doc => {
+//     console.log(doc);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 // users.get('/', (req, res) => {
 //   Item.find().then(items => res.json(items))
