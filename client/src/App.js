@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import Questions from './components/Questions';
 import Questions2 from './components/Questions-2';
+import HOP from './components/HOP';
 // import Navbar from 'reactstrap/lib/Navbar';
 
 
@@ -27,7 +28,7 @@ class App extends Component {
             <div class="gapDiv"></div>
               <GaussianLines></GaussianLines>
               <div class="gapDiv"></div>
-              <GradientCI></GradientCI>
+              <HOP></HOP>
             </div>
 
             <div className=" col-lg-6 col-md-12 col-sm-12">
