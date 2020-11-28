@@ -26,6 +26,6 @@ mongoose
 const item = require('./routes/routes');
 // use Routes
 app.use('/routes', item);
-app.listen(8081, function () {
+app.listen(process.env.PORT || 8081, function () {
   console.log(new Date().toISOString() + ": server started on port 8081");
 });
