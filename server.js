@@ -26,6 +26,15 @@ mongoose
 const item = require('./routes/routes');
 // use Routes
 app.use('/routes', item);
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 app.listen(process.env.PORT || 8081, function () {
   console.log(new Date().toISOString() + ": server started on port 8081");
 });
