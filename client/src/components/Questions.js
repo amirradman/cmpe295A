@@ -5,24 +5,47 @@ class Questions extends React.Component {
 
   constructor(props) {
     super();
-    this.state = { question1: {} };
-    this.state = { question2: {} };
-    this.state = { question3: {} };
-    this.state = { question4: {} };
-    this.state = { question5: {} };
-    this.myChangeHandler = this.myChangeHandler.bind(this);
+    this.state = { G1question1: {} };
+    this.state = { G1question2: {} };
+    this.state = { G1question3: {} };
+    this.state = { G1question4: {} };
+    this.state = { G1question5: {} };
+    
+    this.state = { G2question1: {} };
+    this.state = { G2question2: {} };
+    this.state = { G2question3: {} };
+    this.state = { G2question4: {} };
+    this.state = { G2question5: {} };
+    
+    this.state = { G3question1: {} };
+    this.state = { G3question2: {} };
+    this.state = { G3question3: {} };
+    this.state = { G3question4: {} };
+    this.state = { G3question5: {} };
+    
 
+    // this.state = { selectedOption: '' };
+
+    this.myChangeHandler = this.myChangeHandler.bind(this);
+    // this.onValueChange = this.onValueChange.bind(this);
   }
+
+
+
 
   myChangeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
-    this.setState({ [nam]: val });
+    this.setState({
+      [nam]: val,
+      // selectedOption: event.target.value
+    });
   }
 
 
   mySubmitHandler = (event) => {
     event.preventDefault();
+    
     async function postData(url = '', data = {}) {
       // Default options are marked with *
       const response = await fetch(url, {
@@ -60,25 +83,94 @@ class Questions extends React.Component {
       <form onSubmit={this.mySubmitHandler}>
         {/* ................................................................ */}
         <h1>Please answer to the questions</h1>
-        <h4>Graph 1 </h4>
-        <p>Question 1:According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input
-          value={this.state.question1}
-          type='number'
-          name='question1'
-          onChange={this.myChangeHandler}
-          step="any"
+        <p>Q1: Most probably how many deaths would there be one week ahead Sep. 25 in the US?</p>
 
-        />
-        <p>Question 2:According to the bar graph, what was the approximate population of the city in 1970?</p>
+
+        <label>
+          <input
+            value="205974"
+            type='radio'
+            name='G1question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+        205974
+        </label>
+        <label>
+          <input
+            value="199470"
+            type='radio'
+            name='G1question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+        199470
+        </label>
+        <label>
+          <input
+            value="201741"
+            type='radio'
+            name='G1question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+        201741
+        </label>
+        <label>
+          <input
+            value="Not sure"
+            type='radio'
+            name='G1question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+        Not sure
+        </label>
+        {/* ................................................. */}
+        <p>Q2: At least how many deaths would there be one week ahead Sep. 25 in the US?</p>
+        <label>
         <input
-          value={this.state.question2}
-          type='number'
-          name='question2'
+          value="205974"
+          type='radio'
+          name='G1question2'
           onChange={this.myChangeHandler}
           step="any"
-        // disabled={this.state.flag === true ? true : false}
         />
+        205974
+        </label>
+        <label>
+        <input
+          value="199470"
+          type='radio'
+          name='G1question2'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        199470
+        </label>
+        <label>
+        <input
+          value="201741"
+          type='radio'
+          name='G1question2'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        201741
+        </label>
+        <label>
+        <input
+          value="Not sure"
+          type='radio'
+          name='G1question2'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        Not sure
+        </label>
+{/*.................................................  */}
+        {/* // disabled={this.state.flag === true ? true : false} */}
+        
 
         <p>Question 3:What is the range of values on the (horizontal)
             scale?</p>
@@ -86,7 +178,7 @@ class Questions extends React.Component {
         <input
           value={this.state.question3}
           type='number'
-          name='question3'
+          name='G1question3'
           onChange={this.myChangeHandler}
           // disabled={this.state.id === false ? false : true}
           step="any"
@@ -95,7 +187,7 @@ class Questions extends React.Component {
         <input
           value={this.state.question4}
           type='number'
-          name='question4'
+          name='G1question4'
           onChange={this.myChangeHandler}
           step="any"
         />
@@ -103,7 +195,7 @@ class Questions extends React.Component {
         <input
           value={this.state.question5}
           type='number'
-          name='question5'
+          name='G1question5'
           onChange={this.myChangeHandler}
           step="any"
 
@@ -116,7 +208,7 @@ class Questions extends React.Component {
 
         <input value={this.state.value}
           type='number'
-          name='question1'
+          name='G2question1'
           onChange={this.myChangeHandler}
           // disabled={this.state.flag === true ? true : false}
           step="any"
@@ -124,7 +216,7 @@ class Questions extends React.Component {
         <p>Question 2:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='question2'
+          name='G2question2'
           onChange={this.myChangeHandler2}
           // disabled={this.state.flag === true ? true : false}
           step="any"
@@ -136,7 +228,7 @@ class Questions extends React.Component {
 
         <input value={this.state.value}
           type='number'
-          name='Question3'
+          name='G2question3'
           onChange={this.myChangeHandler}
           // disabled={this.state.id === false ? false : true}
           step="any"
@@ -144,15 +236,15 @@ class Questions extends React.Component {
         <p>Question 4:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='Question4'
-          onChange={this.myChangeHandler2}
+          name='G2question4'
+          onChange={this.myChangeHandler}
           step="any"
         />
         <p>Question 5:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='Question5'
-          onChange={this.myChangeHandler2}
+          name='G2question5'
+          onChange={this.myChangeHandler}
           step="any"
 
         />
@@ -164,7 +256,7 @@ class Questions extends React.Component {
 
         <input value={this.state.value}
           type='number'
-          name='question1'
+          name='G3question1'
           onChange={this.myChangeHandler}
           // disabled={this.state.flag === true ? true : false}
           step="any"
@@ -172,8 +264,8 @@ class Questions extends React.Component {
         <p>Question 2:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='question2'
-          onChange={this.myChangeHandler2}
+          name='G3question2'
+          onChange={this.myChangeHandler}
           // disabled={this.state.flag === true ? true : false} 
           step="any"
         />
@@ -184,7 +276,7 @@ class Questions extends React.Component {
 
         <input value={this.state.value}
           type='number'
-          name='Question3'
+          name='G3question3'
           onChange={this.myChangeHandler}
           // disabled={this.state.id === false ? false : true}
           step="any"
@@ -192,21 +284,24 @@ class Questions extends React.Component {
         <p>Question 4:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='Question4'
-          onChange={this.myChangeHandler2}
+          name='G3question4'
+          onChange={this.myChangeHandler}
           step="any"
         />
         <p>Question 5:According to the bar graph, what was the approximate population of the city in 1970?</p>
         <input value={this.state.value}
           type='number'
-          name='Question5'
-          onChange={this.myChangeHandler2}
+          name='G3question5'
+          onChange={this.myChangeHandler}
 
 
         />
         <hr></hr>
         <br />
         <br />
+        <div>
+          {/* Selected option is : {this.state.selectedOption} */}
+        </div>
         <input type='submit' />
       </form>
     );
