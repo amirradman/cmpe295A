@@ -65,15 +65,20 @@ class Questions extends React.Component {
         console.log("here is data");
         console.log(data);
         sessionStorage.setItem('id', data._id);
+        alert("Your Answers Successfully Submitted.")
       }, (error) => {
         console.log(error);
+        alert("There Are Some Errors.Please Try Again.")
       })
   }
 
   render() {
+    const mystyle = {           
+     margin:"7px"
+    };
     return (
       <form  onSubmit={this.mySubmitHandler}>
-        <div class="form-group">
+        <div className="form-group">
         {/* ................................................................ */}
         <h1>Please answer to the questions</h1>
         <h4>Graph 1</h4>
@@ -118,7 +123,7 @@ class Questions extends React.Component {
         
       
         <label class="radio-inline">
-          <input
+          <input style={mystyle} 
             value="Not sure"
             type='radio'
             name='G1question1'
@@ -162,7 +167,7 @@ class Questions extends React.Component {
         C. 201741
         </label>
         <label>
-        <input
+        <input style={mystyle}
           value="Not sure"
           type='radio'
           name='G1question2'

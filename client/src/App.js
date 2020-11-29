@@ -12,28 +12,31 @@ class App extends Component {
   render() {
     const id = sessionStorage.getItem('id');
     console.log(id);
+
     return (
       <div id="container1">
         <div className="App container2">
           <Navbar></Navbar>
         </div>
-        <div>
+        {/* <div> */}
           <div className="row">
-            <div className="col-lg-6 col-md-12 col-sm-12">
-            <br/><br/><br/><br/>
-            <GradientCI></GradientCI>
-            <div class="gapDiv"></div>
+            {/* graph */}
+            <div class="boxSize1">
+              <br /><br /><br /><br />
+              <GradientCI></GradientCI>
+              <div class="gapDiv"></div>
               <GaussianLines></GaussianLines>
               <div class="gapDiv"></div>
               <HOP></HOP>
             </div>
 
-            <div className=" col-lg-6 col-md-12 col-sm-12">
+            {/* questions  */}
+            <div class="boxSize2">
               <Questions />
             </div>
 
           </div>
-        </div>
+        {/* </div> */}
       </div>
 
 
