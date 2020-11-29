@@ -15,6 +15,11 @@ class GradientCI extends Component {
     //   this.barpadding = this.props.barpadding
       this.createGradientCI = this.createGradientCI.bind(this)
    }
+
+//    render(){
+
+
+//    }
    componentDidMount() {
       this.createGradientCI()
    }
@@ -241,7 +246,7 @@ render() {
     //   </svg>
     return <svg ref={node => this.node = node}
     // >
-    width={800} height={300}>
+    width={800} height={400}>
     </svg>
    }
 }
