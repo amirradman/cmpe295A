@@ -53,6 +53,7 @@ class GradientCI extends Component {
                 d.CI_left = +d.CI_left;
                 d.CI_right = +d.CI_right;
             });
+        });
 
 
       var svg = select(node)
