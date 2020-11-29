@@ -58,15 +58,15 @@ class GaussianLines extends Component {
 
             .domain(d3.extent(data_ori, function(d) { return d.x; }))
         
-        // Customize ticks
-        var dates = []
-        dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
-        dates = dates.map(d => new Date(`'${d}'`));
+        // // Customize ticks
+        // var dates = []
+        // dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
+        // dates = dates.map(d => new Date(`'${d}'`));
 
         let xAxis = axisBottom(x);
-        let ticks = x.ticks();
-        ticks.push(...dates);
-        xAxis.tickValues(ticks);
+        // let ticks = x.ticks();
+        // ticks.push(...dates);
+        // xAxis.tickValues(ticks);
 
         svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
@@ -132,6 +132,29 @@ class GaussianLines extends Component {
         await delay(2000);
         drawLine(svg, margin, x, y, data_ori, "#000066", 3)
 
+        // Add tooltip
+        var tooltip = svg.append("text")
+                        .style("opacity", 0);
+
+        function hide_tip(tooltip){
+            tooltip.transition()
+                    .duration('50')
+                    .style("opacity", 0);
+        }
+
+        function show_tip(tooltip, text, x, y){
+            tooltip.transition()
+                    .duration(50)
+                    .style("opacity", 1);
+            tooltip.html(text)
+                    .attr("x", x - 20)             
+                    .attr("y", y - 20)
+                    .attr("dy", "1em")
+                    .attr("font-size", 12)
+                    .attr("font-weight", 'bold')
+                    .style('fill', 'Red')
+        }
+
         // Add the scatterplot
         svg.selectAll("dot")
             .data(data_ori)
@@ -140,7 +163,19 @@ class GaussianLines extends Component {
             .attr('fill', "#000066")
             .attr("cx", function (d) { return x(d.x); })
             .attr("cy", function (d) { return y(d.y); })
+            .attr("x-tip", function (d) { return x(d.x) + margin.left; })
+            .attr("y-tip", function (d) { return y(d.y) + margin.top; })
+            .attr("data-y", function(d) { return d.y; })
             .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+            .on('mouseover', function (d) {
+                show_tip(tooltip, 
+                        d3.select(this).attr("data-y"), 
+                        parseInt(d3.select(this).attr("x-tip")), 
+                        parseInt(d3.select(this).attr("y-tip")))
+           })
+           .on('mouseout', function () {
+                hide_tip(tooltip)
+           });
     }
 
     render() {
