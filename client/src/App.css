@@ -5,6 +5,7 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
+  background-color: #e5ebef;
 }
 #container2{
   height: 100%;
@@ -25,4 +26,18 @@ hr{
 }
 .gapDiv{
   height:100px;
+}
+/* .Design{
+  font-family: sans-serif;
+} */
+
+.bold{
+  font-weight:bold;
+}
+.button{
+  background-color: #306087;
+  color:#ffffff;
+}
+label{
+  margin-right: 40px;
 }
