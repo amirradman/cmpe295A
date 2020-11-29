@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { scaleLinear, scaleTime } from 'd3-scale'
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 import { line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
@@ -55,11 +55,21 @@ class GaussianLines extends Component {
         // Add X axis --> it is a date format
         x = scaleTime()
             .range([0, width])
-            .domain(d3.extent(data_ori, function(d) { return d.x; }));
+            .domain(d3.extent(data_ori, function(d) { return d.x; }))
         
+        // Customize ticks
+        var dates = []
+        dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
+        dates = dates.map(d => new Date(`'${d}'`));
+
+        let xAxis = axisBottom(x);
+        let ticks = x.ticks();
+        ticks.push(...dates);
+        xAxis.tickValues(ticks);
+
         svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-            .call(axisBottom(x));
+            .call(xAxis);
 
         // Add the text label for the x axis
         svg.append("text")
@@ -107,10 +117,10 @@ class GaussianLines extends Component {
 
         // Draw gaussion lines  
         for (let row of rows) {
-            drawLine(svg, margin, x, y, row);
-            // await exec(() => {
-            //     drawLine(svg, margin, x, y, row)
-            // });
+            // drawLine(svg, margin, x, y, row);
+            await exec(() => {
+                drawLine(svg, margin, x, y, row)
+            });
         }
 
         // Draw final line
@@ -171,7 +181,7 @@ function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWid
     const transitionPath = d3
                             .transition()
                             .ease(d3.easeSin)
-                            .duration(2500)
+                            .duration(500)
                             
     path
         .attr("stroke-dashoffset", pathLength)
@@ -180,7 +190,7 @@ function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWid
         .attr("stroke-dashoffset", 0);
 }
 
-function exec(func, time = 1000) {
+function exec(func, time = 300) {
     return new Promise(function(resolve, reject) {
         setTimeout(() => {
             func();

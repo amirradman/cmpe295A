@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 // import '../App.css'
 import { scaleLinear, scaleTime } from 'd3-scale'
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 import { area, line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
-import $ from 'jquery'
 import csv_data from '../Data/data.csv'
 
 class GradientCI extends Component {
@@ -47,10 +45,20 @@ class GradientCI extends Component {
                 .range([0, width])
                 .domain(d3.extent(data, function(d) { return d.x; }));
 
+        // Customize ticks 
+        var dates = []
+        dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
+        dates = dates.map(d => new Date(`'${d}'`));
+
+        let xAxis = axisBottom(x);
+        let ticks = x.ticks();
+        ticks.push(...dates);
+        xAxis.tickValues(ticks);
+
         // select(node)
         svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-            .call(axisBottom(x));
+            .call(xAxis);
 
         // Add the text label for the x axis
         svg.append("text")
@@ -210,9 +218,10 @@ class GradientCI extends Component {
                     hide_tip(tooltip)
                     hide_tip(tooltip_low)
                     hide_tip(tooltip_high)
-                    bounds.transition()
-                        .duration('50')
-                        .attr("opacity", 0);
+                    bounds.attr("opacity", 0);
+                    // bounds.transition()
+                    //     .duration('50')
+                    //     .attr("opacity", 0);
                });
             
         // Add title 
