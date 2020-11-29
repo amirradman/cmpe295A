@@ -41,3 +41,6 @@ hr{
 label{
   margin-right: 40px;
 }
+input[type="radio"] {
+  margin-right: 2px;
+}
