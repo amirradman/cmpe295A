@@ -55,10 +55,9 @@ class GradientCI extends Component {
             });
         });
 
-
-      var svg = select(node)
+        var svg = select(node)
       
-      d3.csv(csv_data).then(function(data) {
+        d3.csv(csv_data).then(function(data) {
         // format the data
         // string to ingeter
         data.forEach(function(d) {
@@ -74,15 +73,15 @@ class GradientCI extends Component {
                 .domain(d3.extent(data, function (d) { return d.x; }));
 
 
-        // Customize ticks 
-        var dates = []
-        dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
-        dates = dates.map(d => new Date(`'${d}'`));
+        // // Customize ticks 
+        // var dates = []
+        // dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
+        // dates = dates.map(d => new Date(`'${d}'`));
 
         let xAxis = axisBottom(x);
-        let ticks = x.ticks();
-        ticks.push(...dates);
-        xAxis.tickValues(ticks);
+        // let ticks = x.ticks();
+        // ticks.push(...dates);
+        // xAxis.tickValues(ticks);
 
         // select(node)
         svg.append("g")
@@ -155,6 +154,16 @@ class GradientCI extends Component {
                     .y1(function (d) { return y(d.CI_left - 2 * (d.CI_left - d.y) / 3) })
                 )
 
+        // Add the line
+        dataGroup.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 1.5)
+            .attr("d", line()
+                .x(function(d) { return x(d.x) })
+                .y(function(d) { return y(d.y) })
+            )
 
         // Add tooltip
         var tooltip = dataGroup.append("text")
@@ -240,9 +249,6 @@ class GradientCI extends Component {
                     hide_tip(tooltip_low)
                     hide_tip(tooltip_high)
                     bound_dots.attr("opacity", 0);
-                    // bounds.transition()
-                    //     .duration('50')
-                    //     .attr("opacity", 0);
                });
             
         // Add title 
