@@ -23,11 +23,7 @@ class Questions extends React.Component {
     this.state = { G3question4: {} };
     this.state = { G3question5: {} };
     
-
-    // this.state = { selectedOption: '' };
-
     this.myChangeHandler = this.myChangeHandler.bind(this);
-    // this.onValueChange = this.onValueChange.bind(this);
   }
 
 
@@ -38,7 +34,6 @@ class Questions extends React.Component {
     let val = event.target.value;
     this.setState({
       [nam]: val,
-      // selectedOption: event.target.value
     });
   }
 
@@ -76,9 +71,6 @@ class Questions extends React.Component {
   }
 
   render() {
-
-    // const flag = this.state.flag;
-    // console.log(flag);
     return (
       <form  onSubmit={this.mySubmitHandler}>
         <div class="form-group">
@@ -190,7 +182,6 @@ class Questions extends React.Component {
           type='number'
           name='G1question3'
           onChange={this.myChangeHandler}
-          // disabled={this.state.id === false ? false : true}
           step="any"
         />
         <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
@@ -221,7 +212,6 @@ class Questions extends React.Component {
           type='number'
           name='G2question1'
           onChange={this.myChangeHandler}
-          // disabled={this.state.flag === true ? true : false}
           step="any"
         />
         <p><span class="bold">Question 2:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
@@ -230,7 +220,6 @@ class Questions extends React.Component {
           type='number'
           name='G2question2'
           onChange={this.myChangeHandler}
-          // disabled={this.state.flag === true ? true : false}
           step="any"
         />
 
@@ -243,7 +232,6 @@ class Questions extends React.Component {
           type='number'
           name='G2question3'
           onChange={this.myChangeHandler}
-          // disabled={this.state.id === false ? false : true}
           step="any"
         />
         <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
@@ -275,7 +263,6 @@ class Questions extends React.Component {
           type='number'
           name='G3question1'
           onChange={this.myChangeHandler}
-          // disabled={this.state.flag === true ? true : false}
           step="any"
         />
         <p><span class="bold">Question 2:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
@@ -284,7 +271,6 @@ class Questions extends React.Component {
           type='number'
           name='G3question2'
           onChange={this.myChangeHandler}
-          // disabled={this.state.flag === true ? true : false} 
           step="any"
         />
 
@@ -297,7 +283,6 @@ class Questions extends React.Component {
           type='number'
           name='G3question3'
           onChange={this.myChangeHandler}
-          // disabled={this.state.id === false ? false : true}
           step="any"
         />
         <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
