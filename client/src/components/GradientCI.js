@@ -154,15 +154,17 @@ class GradientCI extends Component {
 
         // Add the scatterplot of bounds
         var bounds = dataGroup.selectAll("dot")
+        var bound_dots
         function drawBounds(data) {
-            bounds
-                .data(data)
-                .enter().append("circle")
-                    .attr("r", 3.5)
-                    .attr('fill', "steelblue")
-                    .attr("cx", function(d) { return d.x; })
-                    .attr("cy", function(d) { return d.y; })
-                    .attr("opacity", 1 )
+            bound_dots = bounds
+                            .data(data)
+                            .enter().append("circle")
+                                .attr("r", 3.5)
+                                .attr('fill', "steelblue")
+                                .attr("cx", function(d) { return d.x; })
+                                .attr("cy", function(d) { return d.y; })
+                                .attr("opacity", 1 );
+            
         }
 
         function hide_tip(tooltip){
@@ -223,7 +225,7 @@ class GradientCI extends Component {
                     hide_tip(tooltip)
                     hide_tip(tooltip_low)
                     hide_tip(tooltip_high)
-                    bounds.attr("opacity", 0);
+                    bound_dots.attr("opacity", 0);
                     // bounds.transition()
                     //     .duration('50')
                     //     .attr("opacity", 0);
