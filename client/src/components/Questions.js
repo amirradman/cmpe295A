@@ -77,42 +77,43 @@ class Questions extends React.Component {
         {/* ................................................................ */}
         <h1>Please answer to the questions</h1>
         <h4>Graph 1</h4>
-        <p><span class="bold">Question 1:</span> Most probably how many deaths would there be one week ahead Sep. 25 in the US?</p>
+        {/* Graph 1 Question 1 Below */}
+        <p><span class="bold">Q1.</span> Most probably how many deaths would there be one week ahead Oct. 3 in the US?</p>
 
           <label class="radio-inline">
           <input
-            value="205974"
+            value="215897"
             type='radio'
             name='G1question1'
             onChange={this.myChangeHandler}
             step="any"
           />
-        205974
+        A. 205974
         </label>
        
 
       
         <label class="radio-inline">
           <input
-            value="199470"
+            value="202300"
             type='radio'
             name='G1question1'
             onChange={this.myChangeHandler}
             step="any"
           />
-        199470
+        B. 199470
         </label>
     
        
         <label class="radio-inline">
           <input
-            value="201741"
+            value="206652"
             type='radio'
             name='G1question1'
             onChange={this.myChangeHandler}
             step="any"
           />
-        201741
+        C. 201741
         </label>
         
       
@@ -124,40 +125,41 @@ class Questions extends React.Component {
             onChange={this.myChangeHandler}
             step="any"
           />
-        Not sure
+        D. Not sure
         </label>
        
         {/* ................................................. */}
-        <p><span class="bold">Question 2:</span> At least how many deaths would there be one week ahead Sep. 25 in the US?</p>
+        {/* Graph 1 Question 2 Below */}
+        <p><span class="bold">Q2.</span> At least how many deaths would there be one week ahead Oct. 3 in the US?</p>
         <label>
         <input
-          value="205974"
+          value="215897"
           type='radio'
           name='G1question2'
           onChange={this.myChangeHandler}
           step="any"
         />
-        205974
+        A. 205974
         </label>
         <label>
         <input
-          value="199470"
+          value="202300"
           type='radio'
           name='G1question2'
           onChange={this.myChangeHandler}
           step="any"
         />
-        199470
+        B. 199470
         </label>
         <label>
         <input
-          value="201741"
+          value="206652"
           type='radio'
           name='G1question2'
           onChange={this.myChangeHandler}
           step="any"
         />
-        201741
+        C. 201741
         </label>
         <label>
         <input
@@ -167,35 +169,102 @@ class Questions extends React.Component {
           onChange={this.myChangeHandler}
           step="any"
         />
-        Not sure
+        D. Not sure
         </label>
 {/*.................................................  */}
         {/* // disabled={this.state.flag === true ? true : false} */}
         
-
-        <p><span class="bold">Question 3:</span>What is the range of values on the (horizontal)
-            scale?</p>
-
-        <input 
-        class="form-control"
-          value={this.state.question3}
-          type='number'
+        {/* Graph 1 Question 3 Below */}
+        <p><span class="bold">Q3.</span>In which week could there be the most deaths in the next 4 weeks in the US?</p>
+        <label>
+        <input
+          value="The Week of Sep. 19th"
+          type='radio'
           name='G1question3'
           onChange={this.myChangeHandler}
           step="any"
         />
-        <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input class="form-control"
-          value={this.state.question4}
-          type='number'
+        A. The Week of Sep. 19th
+        </label>
+        <label>
+        <input
+          value="The Week of Sep. 26th"
+          type='radio'
+          name='G1question3'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        B. The Week of Sep. 26th
+        </label>
+        <label>
+        <input
+          value="The Week of OCt. 3rd"
+          type='radio'
+          name='G1question3'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        C. The Week of Oct. 3rd
+        </label>
+        <label>
+        <input
+          value="The Week of Oct. 10th"
+          type='radio'
+          name='G1question3'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        D. The Week of Oct. 10th
+        </label>
+        {/* Graph 1 Question 4 Below */}
+        <p><span class="bold">Q4.</span>In which week could there be the least deaths in the next 4 weeks in the US?</p>
+        <label>
+        <input
+          value="The Week of Sep. 19th"
+          type='radio'
           name='G1question4'
           onChange={this.myChangeHandler}
           step="any"
         />
-        <p><span class="bold">Question 5:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
+        A. The Week of Sep. 19th
+        </label>
+        <label>
+        <input
+          value="The Week of Sep. 26th"
+          type='radio'
+          name='G1question4'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        B. The Week of Sep. 26th
+        </label>
+        <label>
+        <input
+          value="The Week of OCt. 3rd"
+          type='radio'
+          name='G1question4'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        C. The Week of Oct. 3rd
+        </label>
+        <label>
+        <input
+          value="The Week of Oct. 10th"
+          type='radio'
+          name='G1question4'
+          onChange={this.myChangeHandler}
+          step="any"
+        />
+        D. The Week of Oct. 10th
+        </label>
+        {/* Graph 1 Question 5 Below */}
+        <p><span class="bold">Q5. </span>Does the shade look confusing to you? (Scale 0 Extremely confusing - 10 Very clear)</p>
         <input class="form-control"
           value={this.state.question5}
           type='number'
+          min="0"
+          max="10"
           name='G1question5'
           onChange={this.myChangeHandler}
           step="any"
@@ -204,95 +273,414 @@ class Questions extends React.Component {
         {/* ................................................................ */}
         <hr></hr>
         <h4>Graph 2</h4>
-        <p><span class="bold">Question 1:</span>What is the range of values on the (horizontal)
-            scale?</p>
+        {/* Graph 2 Question 1 */}
+        <p><span class="bold">Q1. </span>Most probably how many deaths would there be one week ahead Sep.19 in the US?</p>
+        <label class="radio-inline">
+          <input
+            value="199222"
+            type='radio'
+            name='G2question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. 199222
+        </label>
+       
 
-        <input class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G2question1'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 2:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G2question2'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
+      
+        <label class="radio-inline">
+          <input
+            value="196682"
+            type='radio'
+            name='G2question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. 196682
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="197666"
+            type='radio'
+            name='G2question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. 197666
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="Not sure"
+            type='radio'
+            name='G2question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. Not sure
+        </label>
+        {/* Graph 2 Question 2 */}
+        <p><span class="bold">Q2. </span>Can you identify what this line represents?</p>
+        <label class="radio-inline">
+          <input
+            value="High bound"
+            type='radio'
+            name='G2question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. High Bound
+        </label>
+       
 
+      
+        <label class="radio-inline">
+          <input
+            value="One possible high bound"
+            type='radio'
+            name='G2question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. One possible High Bound
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="Random"
+            type='radio'
+            name='G2question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. Random
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="Not sure"
+            type='radio'
+            name='G2question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. Not sure
+        </label>
 
-        <p><span class="bold">Question 3:</span>What is the range of values on the (horizontal)
-            scale?</p>
+        {/* Graph 2 Question 3 */}
+        <p><span class="bold">Q3. </span>What do all these lines represent?</p>
+        <label class="radio-inline">
+          <input
+            value="Uncertainty of data"
+            type='radio'
+            name='G2question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. Undertainty of data
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="Distribution of uncertainty"
+            type='radio'
+            name='G2question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. Distribution of uncertainty
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="Similar to processing bar"
+            type='radio'
+            name='G2question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. Similar to processing bar
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="Not sure"
+            type='radio'
+            name='G2question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. Not sure
+        </label>
 
-        <input class="form-control"
-         value={this.state.value}
-          type='number'
-          name='G2question3'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G2question4'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 5:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input class="form-control"
-         value={this.state.value}
-          type='number'
-          name='G2question5'
-          onChange={this.myChangeHandler}
-          step="any"
+        {/* Graph 2 Question 4 */}
+        <p><span class="bold">Q4. </span>What does the final bolded line tell you?</p>
+        <label class="radio-inline">
+          <input
+            value="Ensemble mean"
+            type='radio'
+            name='G2question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. Ensemble mean
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="Highest possibility"
+            type='radio'
+            name='G2question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. Highest possibility
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="Observed data"
+            type='radio'
+            name='G2question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. Observed data
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="Not sure"
+            type='radio'
+            name='G2question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. Not sure
+        </label>
 
-        />
+        {/* Graph 2 Question 5 */}
+        <p><span class="bold">Q5. </span>Do you find this graph useful? (Scale 0 Not at all - 10 Very useful)</p>
+          <input class="form-control"
+            value={this.state.value}
+            min="0"
+            max="10"
+            type='number'
+            name='G2question5'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
         <hr></hr>
         {/* ................................................................ */}
         <h4>Graph 3</h4>
-        <p><span class="bold">Question 1:</span>What is the range of values on the (horizontal)
-            scale?</p>
+        {/* Graph 3 Question 1 */}
+        <p><span class="bold">Q1. </span>The opacity of the red line is varied by the probability of the predictive data. Does this feature help you to better visualize the uncertainty of the predictive data?Please rate it from 1 to 4. </p>
+        <label class="radio-inline">
+          <input
+            value="1"
+            type='radio'
+            name='G3question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. 1
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="2"
+            type='radio'
+            name='G3question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. 2
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="3"
+            type='radio'
+            name='G3question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. 3
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="4"
+            type='radio'
+            name='G3question1'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. 4
+        </label>
+        {/* Graph 3 Question 2 */}
+        <p><span class="bold">Q2.</span>The graph randomly animatesthrough all the possible predictivedata. Does that help you better understand the uncertainty nature of the predictive data?Please rate it from 1 to 5.</p>
+        <label class="radio-inline">
+          <input
+            value="1"
+            type='radio'
+            name='G3question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. 1
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="2"
+            type='radio'
+            name='G3question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. 2
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="3"
+            type='radio'
+            name='G3question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. 3
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="4"
+            type='radio'
+            name='G3question2'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. 4
+        </label>
 
-        <input 
-        class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G3question1'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 2:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input  class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G3question2'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
+        {/* Graph 3 Question 3 */}
+        <p><span class="bold">Q3. </span>How many people will most likely pass away due to COVID-19 on August 1?</p>
+        <label class="radio-inline">
+          <input
+            value="18880"
+            type='radio'
+            name='G3question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. 18880
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="17000"
+            type='radio'
+            name='G3question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. 17000
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="19800"
+            type='radio'
+            name='G3question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. 19800
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="20000"
+            type='radio'
+            name='G3question3'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. 20000
+        </label>
 
+        {/* Graph 3 Question 4 */}
+        <p><span class="bold">Q4. </span>What’s the maximum number of people will passed away due to COVID-19 on July 1st?</p>
+        <label class="radio-inline">
+          <input
+            value="31383"
+            type='radio'
+            name='G3question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          A. 31383
+        </label>
+       
+      
+        <label class="radio-inline">
+          <input
+            value="22000"
+            type='radio'
+            name='G3question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          B. 22000
+        </label>
+    
+       
+        <label class="radio-inline">
+          <input
+            value="35000"
+            type='radio'
+            name='G3question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          C. 35000
+        </label>
+        
+      
+        <label class="radio-inline">
+          <input
+            value="28000"
+            type='radio'
+            name='G3question4'
+            onChange={this.myChangeHandler}
+            step="any"
+          />
+          D. 28000
+        </label>
 
-        <p><span class="bold">Question 3:</span>What is the range of values on the (horizontal)
-            scale?</p>
-
-        <input class="form-control"
-        value={this.state.value}
-          type='number'
-          name='G3question3'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 4:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
-        <input class="form-control" value={this.state.value}
-          type='number'
-          name='G3question4'
-          onChange={this.myChangeHandler}
-          step="any"
-        />
-        <p><span class="bold">Question 5:</span>According to the bar graph, what was the approximate population of the city in 1970?</p>
+        {/* Graph 3 Question 5 */}
+        <p><span class="bold">Question 5:</span></p>
         <input class="form-control"  value={this.state.value}
           type='number'
           name='G3question5'

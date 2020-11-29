@@ -20,16 +20,16 @@ const ItemSchema = new Schema({
    Graph1:{
 
      question1:{ 
-       type: Number,
+       type: String,
      },
      question2:{ 
-      type: Number,
+      type: String,
     },
     question3:{ 
-      type: Number,
+      type: String,
     },
     question4:{ 
-      type: Number,
+      type: String,
     },
     question5:{ 
       type: Number,
@@ -38,16 +38,16 @@ const ItemSchema = new Schema({
    Graph2:{
 
     question1:{ 
-      type: Number,
+      type: String,
     },
     question2:{ 
-     type: Number,
+     type: String,
    },
    question3:{ 
-     type: Number,
+     type: String,
    },
    question4:{ 
-     type: Number,
+     type: String,
    },
    question5:{ 
      type: Number,
