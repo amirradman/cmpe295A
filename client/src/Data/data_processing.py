@@ -5,7 +5,7 @@ import random
 
 data_ori = pd.read_csv("client/src/Data/data_ori.csv", encoding='utf-8')
 y_distribution_samples = []
-sigma, size = 1000, 20
+sigma, size = 4000, 100
 
 # y_mean = data_ori['y'].mean()
 # new_ys = []
@@ -63,5 +63,6 @@ for j in range(len(y_distribution_samples[0])):
     rows.append(row)
     row = []
 # print(rows)
+random.shuffle(rows)
 df = pd.DataFrame(rows, columns=["p1", "p2", "p3", "p4"])
-df.to_csv('client/src/Data/processed_data_1000_20.csv', index=False)
+df.to_csv('client/src/Data/processed_data_4000_100.csv', index=False)

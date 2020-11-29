@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { scaleLinear, scaleTime } from 'd3-scale'
-import { select, event } from 'd3-selection'
+import { select } from 'd3-selection'
 import { line } from 'd3-shape'
 import { axisBottom, axisLeft } from 'd3-axis'
 import * as d3 from 'd3'
 import csv_data from '../Data/data.csv'
 // import processed_data from '../Data/processed_data_1000_20.csv'
 // import processed_data from '../Data/processed_data_Exponential.csv'
-import processed_data from '../Data/processed_data_4000_30.csv'
+import processed_data from '../Data/processed_data_4000_100.csv'
 
 
 class GaussianLines extends Component {
@@ -38,10 +38,10 @@ class GaussianLines extends Component {
             .attr("x", (margin.left + width / 2))
             .attr("y", margin.top / 2)
             .attr("dy", "1em")
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .style("text-decoration", "underline")
-            .text("Forecasted weekly COVID-19 deaths in the United States");
+            .attr("text-anchor", "middle")  
+            .style("font-size", "16px") 
+            .style("text-decoration", "underline")  
+            .text("Forecasted weekly COVID-19 deaths in the United States by Columbia University");
 
         var x, y;
         var data_ori = await d3.csv(csv_data);
@@ -55,11 +55,22 @@ class GaussianLines extends Component {
         // Add X axis --> it is a date format
         x = scaleTime()
             .range([0, width])
-            .domain(d3.extent(data_ori, function (d) { return d.x; }));
+
+            .domain(d3.extent(data_ori, function(d) { return d.x; }))
+        
+        // Customize ticks
+        var dates = []
+        dates = ['2020-09-19', '2020-09-26', '2020-10-03', '2020-10-10'];
+        dates = dates.map(d => new Date(`'${d}'`));
+
+        let xAxis = axisBottom(x);
+        let ticks = x.ticks();
+        ticks.push(...dates);
+        xAxis.tickValues(ticks);
 
         svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + (height + margin.top) + ")")
-            .call(axisBottom(x));
+            .call(xAxis);
 
         // Add the text label for the x axis
         svg.append("text")
@@ -107,6 +118,7 @@ class GaussianLines extends Component {
 
         // Draw gaussion lines  
         for (let row of rows) {
+            // drawLine(svg, margin, x, y, row);
             await exec(() => {
                 drawLine(svg, margin, x, y, row)
             });
@@ -156,22 +168,22 @@ function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWid
         d.y = +d.y;          // string to ingeter
     })
     var path = svg.append("path")
-        .datum(rowData)
-        .attr("fill", "none")
-        .attr("stroke", lineColor)
-        .attr("stroke-width", strokeWidth)
-        .attr("d", line()
-            .x(function (d) { return x(d.x) })
-            .y(function (d) { return y(d.y) })
-        )
-        .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+                    .datum(rowData)
+                    .attr("fill", "none")
+                    .attr("stroke", lineColor)
+                    .attr("stroke-width", strokeWidth/2)
+                    .attr("d", line()
+                        .x(function(d) { return x(d.x) })
+                        .y(function(d) { return y(d.y) })
+                    )
+                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
 
-    const pathLength = path.node().getTotalLength();
+    const pathLength = path.node().getTotalLength();  
     const transitionPath = d3
-        .transition()
-        .ease(d3.easeSin)
-        .duration(2500)
-
+                            .transition()
+                            .ease(d3.easeSin)
+                            .duration(500)
+                            
     path
         .attr("stroke-dashoffset", pathLength)
         .attr("stroke-dasharray", pathLength)
@@ -179,8 +191,9 @@ function drawLine(svg, margin, x, y, rowData, lineColor = "steelblue", strokeWid
         .attr("stroke-dashoffset", 0);
 }
 
-function exec(func, time = 1000) {
-    return new Promise(function (resolve, reject) {
+
+function exec(func, time = 300) {
+    return new Promise(function(resolve, reject) {
         setTimeout(() => {
             func();
             resolve();
