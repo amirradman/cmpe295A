@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from "jquery";
 
 class Questions extends React.Component {
 
@@ -93,6 +94,7 @@ class Questions extends React.Component {
             name='G1question1'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
         A. 205974
         </label>
@@ -144,6 +146,7 @@ class Questions extends React.Component {
           name='G1question2'
           onChange={this.myChangeHandler}
           step="any"
+          required
         />
         A. 205974
         </label>
@@ -189,6 +192,7 @@ class Questions extends React.Component {
           name='G1question3'
           onChange={this.myChangeHandler}
           step="any"
+          required
         />
         A. The Week of Sep. 19th
         </label>
@@ -231,6 +235,7 @@ class Questions extends React.Component {
           name='G1question4'
           onChange={this.myChangeHandler}
           step="any"
+          required
         />
         A. The Week of Sep. 19th
         </label>
@@ -274,7 +279,7 @@ class Questions extends React.Component {
           name='G1question5'
           onChange={this.myChangeHandler}
           step="any"
-
+          required
         />
         {/* ................................................................ */}
         <hr></hr>
@@ -288,6 +293,7 @@ class Questions extends React.Component {
             name='G2question1'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. 199222
         </label>
@@ -337,6 +343,7 @@ class Questions extends React.Component {
             name='G2question2'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. High Bound
         </label>
@@ -387,6 +394,7 @@ class Questions extends React.Component {
             name='G2question3'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. Undertainty of data
         </label>
@@ -436,6 +444,7 @@ class Questions extends React.Component {
             name='G2question4'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. Ensemble mean
         </label>
@@ -486,6 +495,7 @@ class Questions extends React.Component {
             name='G2question5'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
         <hr></hr>
         {/* ................................................................ */}
@@ -499,6 +509,7 @@ class Questions extends React.Component {
             name='G3question1'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. 1
         </label>
@@ -539,7 +550,7 @@ class Questions extends React.Component {
           D. 4
         </label>
         {/* Graph 3 Question 2 */}
-        <p><span class="bold">Q2.</span>The graph randomly animatesthrough all the possible predictivedata. Does that help you better understand the uncertainty nature of the predictive data?Please rate it from 1 to 5.</p>
+        <p><span class="bold">Q2.</span>The graph randomly animates through all the possible predictive data. Does that help you better understand the uncertainty nature of the predictive data?Please rate it from 1 to 5.</p>
         <label class="radio-inline">
           <input
             value="1"
@@ -547,6 +558,7 @@ class Questions extends React.Component {
             name='G3question2'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. 1
         </label>
@@ -596,6 +608,7 @@ class Questions extends React.Component {
             name='G3question3'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. 18880
         </label>
@@ -645,6 +658,7 @@ class Questions extends React.Component {
             name='G3question4'
             onChange={this.myChangeHandler}
             step="any"
+            required
           />
           A. 31383
         </label>
@@ -686,13 +700,14 @@ class Questions extends React.Component {
         </label>
 
         {/* Graph 3 Question 5 */}
-        <p><span class="bold">Question 5:</span></p>
+        <p><span class="bold">Question 5:</span>What’s your overall experience of this uncertainty visualization with HOP and color gradient features?(Scale 0 Not at all - 10 Very useful)</p>
         <input class="form-control"  value={this.state.value}
           type='number'
+          min="0"
+          max="10"
           name='G3question5'
           onChange={this.myChangeHandler}
-
-
+          required
         />
         <hr></hr>
         <br />
@@ -700,13 +715,12 @@ class Questions extends React.Component {
         <div>
           {/* Selected option is : {this.state.selectedOption} */}
         </div>
-        <input class="btn btn-lg  button" type='submit' />
+        <input class="btn btn-lg  button" type='submit' id="submit1"/>
         </div>
       </form>
     );
   }
 }
-
 
 
 ReactDOM.render(<Questions />, document.getElementById('root'));
