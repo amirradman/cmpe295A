@@ -1,10 +1,28 @@
 .test{
   background-color: rgb(197, 196, 196);
 }
-.Test{
-  display:left;
+#container1{
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
-.jumbotron {
-  padding: 5em inherit;
-  border-radius: 8px;
+#container2{
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+ 
+}
+.show{
+  display:block;
+}
+.hide{
+  display:none;
+  /* pointer-events:none; */
+}
+
+hr{
+  color:black;
+}
+.gapDiv{
+  height:100px;
 }

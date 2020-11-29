@@ -9,7 +9,8 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Amir Radman",
   "license": "ISC",
@@ -21,9 +22,15 @@
     "cors": "^2.8.5",
     "create-components-react": "^2.1.4",
     "d3": "^6.2.0",
+    "d3-axis": "^2.0.0",
+    "d3-scale": "^3.2.3",
+    "d3-selection": "^2.0.0",
+    "d3-shape": "^2.0.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
-    "mongoose": "^5.9.26"
+    "mongoose": "^5.9.26",
+    "react-remove-scroll-bar": "^2.1.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
