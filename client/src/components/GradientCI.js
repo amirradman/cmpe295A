@@ -55,7 +55,7 @@ class GradientCI extends Component {
             });
         });
 
-        var svg = select(node)
+        svg = select(node)
       
         d3.csv(csv_data).then(function(data) {
         // format the data

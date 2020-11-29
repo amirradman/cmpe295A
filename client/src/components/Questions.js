@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from "jquery";
 
 class Questions extends React.Component {
 
@@ -61,7 +60,7 @@ class Questions extends React.Component {
       ;
     }
 
-    postData('http://localhost:8081/routes/Save', this.state)
+    postData('https://floating-wildwood-66664.herokuapp.com/routes/Save', this.state)
       .then(data => {
         console.log("here is data");
         console.log(data);
