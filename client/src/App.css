@@ -41,3 +41,47 @@ hr{
 label{
   margin-right: 40px;
 }
+/* .......................... */
+.boxSize1{
+
+  width:55%;
+}
+.boxSize2{
+  
+  width:45%;
+  overflow-wrap: break-word;
+}
+/* .box{
+  overflow-wrap: break-word;
+  word-break: break-all
+} */
+@media only screen and (max-width: 1564px) {
+  .boxSize1{
+    display: inline-block;
+  }
+  .row{
+    text-align: center;
+  }
+  .boxSize2{
+    width:40%;
+    /* overflow-wrap: break-word;   */
+  }
+}
+
+@media only screen and (max-width: 1460px) {
+  .boxSize1{
+    display: inline-block;
+    width:100%
+  }
+  /* .row{
+    text-align: center;
+  } */
+  .boxSize2{
+    width:100%;
+    /* display: inline-block; */
+  }
+  .form-control{
+    width:70%;
+    display:inline-block;
+  }
+}
