@@ -66,7 +66,7 @@ class Questions extends React.Component {
         console.log(data);
         sessionStorage.setItem('id', data._id);
         alert("Successfully Submitted. Thank you!")
-        window.close()
+        setTimeout (window.close, 1000);
       }, (error) => {
         console.log(error);
         alert("There Are Some Errors.Please Try Again.")
