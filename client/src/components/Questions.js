@@ -650,7 +650,7 @@ class Questions extends React.Component {
         </label>
 
         {/* Graph 3 Question 4 */}
-        <p><span class="bold">Q4. </span>What’s the maximum number of people that will passed away due to COVID-19 on July 1st?</p>
+        <p><span class="bold">Q4. </span>What’s the maximum number of people that will pass away due to COVID-19 on July 1st?</p>
         <label class="radio-inline">
           <input
             value="31383"
