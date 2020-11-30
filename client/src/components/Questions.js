@@ -420,7 +420,7 @@ class Questions extends React.Component {
             onChange={this.myChangeHandler}
             step="any"
           />
-          C. Similar to processing bar
+          C. Similar to progress icon/loading icon
         </label>
         
       
