@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 class Questions extends React.Component {
 
@@ -66,7 +67,7 @@ class Questions extends React.Component {
         console.log(data);
         sessionStorage.setItem('id', data._id);
         alert("Successfully Submitted. Thank you!")
-        setTimeout (window.close, 1000);
+        $('#submit1').prop('disabled', true);
       }, (error) => {
         console.log(error);
         alert("There Are Some Errors.Please Try Again.")
