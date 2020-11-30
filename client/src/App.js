@@ -27,7 +27,7 @@ class App extends Component {
               <div class="gapDiv"></div>
               <GaussianLines></GaussianLines>
               <div class="gapDiv"></div>
-              <HOP></HOP>
+              <div className="align"><HOP></HOP></div>
             </div>
 
             {/* questions  */}

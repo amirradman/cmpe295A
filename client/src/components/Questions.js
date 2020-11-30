@@ -85,7 +85,7 @@ class Questions extends React.Component {
         <h1>Please answer to the questions</h1>
         <h4>Graph 1</h4>
         {/* Graph 1 Question 1 Below */}
-        <p><span class="bold">Q1.</span> Most probably how many deaths would there be the week following Oct. 3 in the US?</p>
+        <p><span class="bold">Q1.</span> Most probably how many deaths would there be the week of Oct. 3 in the US?</p>
 
           <label class="radio-inline">
           <input
@@ -138,7 +138,7 @@ class Questions extends React.Component {
        
         {/* ................................................. */}
         {/* Graph 1 Question 2 Below */}
-        <p><span class="bold">Q2.</span> At least how many deaths would there be the week following Oct. 3 in the US?</p>
+        <p><span class="bold">Q2.</span> At least how many deaths would there be the week of Oct. 3 in the US?</p>
         <label>
         <input
           value="215897"
@@ -285,7 +285,7 @@ class Questions extends React.Component {
         <hr></hr>
         <h4>Graph 2</h4>
         {/* Graph 2 Question 1 */}
-        <p><span class="bold">Q1. </span>Most probably how many deaths would there be the week following Sep.19 in the US?</p>
+        <p><span class="bold">Q1. </span>Most probably how many deaths would there be the week of Sep.19 in the US?</p>
         <label class="radio-inline">
           <input
             value="199222"

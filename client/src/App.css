@@ -88,3 +88,6 @@ label{
 input[type="radio"] {
   margin-right: 2px;
 }
+.align{
+  margin-left: 10px;
+}
