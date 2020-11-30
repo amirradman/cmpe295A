@@ -85,7 +85,7 @@ class Questions extends React.Component {
         <h1>Please answer to the questions</h1>
         <h4>Graph 1</h4>
         {/* Graph 1 Question 1 Below */}
-        <p><span class="bold">Q1.</span> Most probably how many deaths would there be one week ahead Oct. 3 in the US?</p>
+        <p><span class="bold">Q1.</span> Most probably how many deaths would there be the week following Oct. 3 in the US?</p>
 
           <label class="radio-inline">
           <input
@@ -96,7 +96,7 @@ class Questions extends React.Component {
             step="any"
             required
           />
-        A. 205974
+        A. 215897
         </label>
        
 
@@ -109,7 +109,7 @@ class Questions extends React.Component {
             onChange={this.myChangeHandler}
             step="any"
           />
-        B. 199470
+        B. 202300
         </label>
     
        
@@ -121,7 +121,7 @@ class Questions extends React.Component {
             onChange={this.myChangeHandler}
             step="any"
           />
-        C. 201741
+        C. 206652
         </label>
         
       
@@ -138,7 +138,7 @@ class Questions extends React.Component {
        
         {/* ................................................. */}
         {/* Graph 1 Question 2 Below */}
-        <p><span class="bold">Q2.</span> At least how many deaths would there be one week ahead Oct. 3 in the US?</p>
+        <p><span class="bold">Q2.</span> At least how many deaths would there be the week following Oct. 3 in the US?</p>
         <label>
         <input
           value="215897"
@@ -148,7 +148,7 @@ class Questions extends React.Component {
           step="any"
           required
         />
-        A. 205974
+        A. 215897
         </label>
         <label>
         <input
@@ -158,7 +158,7 @@ class Questions extends React.Component {
           onChange={this.myChangeHandler}
           step="any"
         />
-        B. 199470
+        B. 202300
         </label>
         <label>
         <input
@@ -168,7 +168,7 @@ class Questions extends React.Component {
           onChange={this.myChangeHandler}
           step="any"
         />
-        C. 201741
+        C. 206652
         </label>
         <label>
         <input style={mystyle}
@@ -285,7 +285,7 @@ class Questions extends React.Component {
         <hr></hr>
         <h4>Graph 2</h4>
         {/* Graph 2 Question 1 */}
-        <p><span class="bold">Q1. </span>Most probably how many deaths would there be one week ahead Sep.19 in the US?</p>
+        <p><span class="bold">Q1. </span>Most probably how many deaths would there be the week following Sep.19 in the US?</p>
         <label class="radio-inline">
           <input
             value="199222"
@@ -335,7 +335,7 @@ class Questions extends React.Component {
           D. Not sure
         </label>
         {/* Graph 2 Question 2 */}
-        <p><span class="bold">Q2. </span>Can you identify what this line represents?</p>
+        <p><span class="bold">Q2. </span>What does the top line tell you?</p>
         <label class="radio-inline">
           <input
             value="High bound"
@@ -396,7 +396,7 @@ class Questions extends React.Component {
             step="any"
             required
           />
-          A. Undertainty of data
+          A. Uncertainty of data
         </label>
        
       
@@ -414,7 +414,7 @@ class Questions extends React.Component {
        
         <label class="radio-inline">
           <input
-            value="Similar to processing bar"
+            value="Similar to progress icon/loading icon"
             type='radio'
             name='G2question3'
             onChange={this.myChangeHandler}
@@ -436,7 +436,7 @@ class Questions extends React.Component {
         </label>
 
         {/* Graph 2 Question 4 */}
-        <p><span class="bold">Q4. </span>What does the final bolded line tell you?</p>
+        <p><span class="bold">Q4. </span>What does the bold line tell you?</p>
         <label class="radio-inline">
           <input
             value="Ensemble mean"
@@ -650,7 +650,7 @@ class Questions extends React.Component {
         </label>
 
         {/* Graph 3 Question 4 */}
-        <p><span class="bold">Q4. </span>What’s the maximum number of people will passed away due to COVID-19 on July 1st?</p>
+        <p><span class="bold">Q4. </span>What’s the maximum number of people that will passed away due to COVID-19 on July 1st?</p>
         <label class="radio-inline">
           <input
             value="31383"
@@ -700,7 +700,7 @@ class Questions extends React.Component {
         </label>
 
         {/* Graph 3 Question 5 */}
-        <p><span class="bold">Question 5:</span>What’s your overall experience of this uncertainty visualization with HOP and color gradient features?(Scale 0 Not at all - 10 Very useful)</p>
+        <p><span class="bold">Q5. </span>What’s your overall experience of this uncertainty visualization with HOP and color gradient features?(Scale 0 Not at all - 10 Very useful)</p>
         <input class="form-control"  value={this.state.value}
           type='number'
           min="0"
