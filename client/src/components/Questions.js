@@ -550,7 +550,7 @@ class Questions extends React.Component {
           D. 4
         </label>
         {/* Graph 3 Question 2 */}
-        <p><span class="bold">Q2.</span>The graph randomly animates through all the possible predictive data. Does that help you better understand the uncertainty nature of the predictive data?Please rate it from 1 to 5.</p>
+        <p><span class="bold">Q2.</span>The graph randomly animates through all the possible predictive data. Does that help you better understand the uncertainty nature of the predictive data?Please rate it from 1 to 4.</p>
         <label class="radio-inline">
           <input
             value="1"
